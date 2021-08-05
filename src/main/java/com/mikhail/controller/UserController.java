@@ -4,6 +4,7 @@ package com.mikhail.controller;
 import com.mikhail.errors.CatsNotFoundException;
 import com.mikhail.model.User;
 import com.mikhail.model.dto.UserDTO;
+import com.mikhail.service.UserService;
 import com.mikhail.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,12 @@ import java.net.URISyntaxException;
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     /**
      * GET /users/:login : получение логина("login") пользователя.
      *
@@ -34,12 +41,15 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
 
-        if(!login.contains("cat")){
+        userService.save(new User("Petr","petr"));
+
+
+/*        if(!login.contains("cat")){
             throw new CatsNotFoundException();
-        }
+        }*/
 
         //return new ResponseEntity<>(new Object(), HttpStatus.OK);
-        return new ResponseEntity<>(new String("1111" + login), HttpStatus.OK);
+        return new ResponseEntity<>(new String("1111" + login + userService.findOneByLogin(login).getName()), HttpStatus.OK);
     }
 
     /**
