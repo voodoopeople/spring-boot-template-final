@@ -12,17 +12,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
+//@RunWith(SpringRunner.class)
+//@DataJpaTest
 public class BookRepositoryTest {
 
-    @Autowired
+    //@Autowired
     private TestEntityManager entityManager;
 
-    @Autowired
+    //@Autowired
     private BookRepository repository;
 
-    @Test
+    //@Test
     public void testFindByName() {
 
         entityManager.persist(new Book("C++"));
